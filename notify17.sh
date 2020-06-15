@@ -22,7 +22,9 @@
 # Global variable(s):
 count=0
 OUTPUT=""
-apiKey=""
+apiKey="<YOUR API KEY>"
+title="<YOUR TITLE>"
+message="<YOUR MESSAGE>"
 
 
 # Needs root!
@@ -32,8 +34,6 @@ apt-get update
 OUTPUT=$(apt-get -s full-upgrade)
 count=$(grep -c "following" <<< "$OUTPUT")
 
-title="<YOUR TITLE>"
-message="<YOUR MESSAGE>"
 
 # Test for count and send notification. (Need to signup for API KEY!)
 if [ $count -gt 0 ]
