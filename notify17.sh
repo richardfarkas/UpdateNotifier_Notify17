@@ -6,6 +6,14 @@
 # Version 1.0                                                                 #
 # Target: RaspberryPi Zero W (Raspbian Buster)                                #
 ###############################################################################
+# ****Usage:****                                                              #
+# Request API KEY from Notify17 and place it in apiKey variable               #
+# Add a title to title variable                                               #
+# Add a message to message variable - output of apt-get can be added to the   #
+#   message                                                                   #
+# Place this file in cron.daily, cron.weekly etc. directory or install job    #
+#   with cron/anacron                                                         #
+###############################################################################
 # ****This script was downloaded from:****                                    #
 # https://www.fosslife.org/2-simple-steps-securing-your-linux-desktop         #
 ###############################################################################
@@ -34,8 +42,10 @@ apt-get update
 OUTPUT=$(apt-get -s full-upgrade)
 count=$(grep -c "following" <<< "$OUTPUT")
 
+# *Output of apt-get can be sent with message*
+# message="$OUTPUT"
 
-# Test for count and send notification. (Need to signup for API KEY!)
+# Test for count and send notification.
 if [ $count -gt 0 ]
     then
         curl -X POST "https://hook.notify17.net/api/raw/$apiKey" -F title="$title" -F content="$message"
